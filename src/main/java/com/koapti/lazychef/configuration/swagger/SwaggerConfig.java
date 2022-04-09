@@ -47,7 +47,7 @@ public class SwaggerConfig {
     private SecurityContext createContext() {
         return SecurityContext.builder()
                 .securityReferences(createRef())
-                .forPaths(PathSelectors.any())
+                .operationSelector(operationContext -> true)
                 .build();
     }
 
@@ -56,9 +56,7 @@ public class SwaggerConfig {
     }
 
     private List<SecurityReference> createRef() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[]{new AuthorizationScope("global", "accessEverything")};
         return Collections.singletonList(new SecurityReference("apiKey", authorizationScopes));
     }
 }
