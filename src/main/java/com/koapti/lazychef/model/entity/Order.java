@@ -11,36 +11,28 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "\"order\"")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_order", nullable = false)
     private Integer id;
 
+    @Column(name = "state", nullable = false)
+    private Integer state;
+
     @Column(name = "table_nr", nullable = false)
     private Integer tableNr;
 
-    @Column(name = "state", nullable = false)
-    private String state;
-
     @OneToMany(mappedBy = "idOrder")
-    private Set<OrdersDishesDrink> ordersDishesDrinks = new LinkedHashSet<>();
+    private Set<OrdersFood> ordersFoods = new LinkedHashSet<>();
 
-    public Set<OrdersDishesDrink> getOrdersDishesDrinks() {
-        return ordersDishesDrinks;
+    public Set<OrdersFood> getOrdersFoods() {
+        return ordersFoods;
     }
 
-    public void setOrdersDishesDrinks(Set<OrdersDishesDrink> ordersDishesDrinks) {
-        this.ordersDishesDrinks = ordersDishesDrinks;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
+    public void setOrdersFoods(Set<OrdersFood> ordersFoods) {
+        this.ordersFoods = ordersFoods;
     }
 
     public Integer getTableNr() {
@@ -49,6 +41,14 @@ public class Order {
 
     public void setTableNr(Integer tableNr) {
         this.tableNr = tableNr;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Integer getId() {
