@@ -35,22 +35,22 @@ public class OrdersFood {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_order", nullable = false)
-    private Order idOrder;
+    private Order order;
 
-    public Order getIdOrder() {
-        return idOrder;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setIdOrder(Order idOrder) {
-        this.idOrder = idOrder;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public Food getIdFood() {
+    public Food getFood() {
         return food;
     }
 
-    public void setIdFood(Food idFood) {
-        this.food = idFood;
+    public void setFood(Food food) {
+        this.food = food;
     }
 
     public FoodState getState() {

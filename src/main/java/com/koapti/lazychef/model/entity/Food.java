@@ -35,7 +35,7 @@ public class Food {
     @Column(name = "type", nullable = false)
     private FoodType type;
 
-    @OneToMany(mappedBy = "idFood")
+    @OneToMany(mappedBy = "food")
     private Set<OrdersFood> ordersFoods = new LinkedHashSet<>();
 
     public Set<OrdersFood> getOrdersFoods() {

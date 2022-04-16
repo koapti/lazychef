@@ -30,7 +30,7 @@ public class Order {
     @Column(name = "table_nr", nullable = false)
     private Integer tableNr;
 
-    @OneToMany(mappedBy = "idOrder")
+    @OneToMany(mappedBy = "order")
     private Set<OrdersFood> ordersFoods = new LinkedHashSet<>();
 
     public Set<OrdersFood> getOrdersFoods() {
