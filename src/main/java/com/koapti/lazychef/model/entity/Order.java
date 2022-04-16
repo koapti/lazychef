@@ -4,11 +4,15 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.koapti.lazychef.model.states.FoodState;
 
 @Entity
 @Table(name = "order")
@@ -18,8 +22,9 @@ public class Order {
     @Column(name = "id_order", nullable = false)
     private Integer id;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "state", nullable = false)
-    private Integer state;
+    private FoodState state;
 
     @Column(name = "table_nr", nullable = false)
     private Integer tableNr;
@@ -43,11 +48,11 @@ public class Order {
         this.tableNr = tableNr;
     }
 
-    public Integer getState() {
+    public FoodState getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(FoodState state) {
         this.state = state;
     }
 
