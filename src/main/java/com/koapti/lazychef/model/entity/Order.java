@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.koapti.lazychef.model.states.FoodState;
+import com.koapti.lazychef.model.states.OrderState;
 
 @Entity
 @Table(name = "order")
@@ -24,7 +25,7 @@ public class Order {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "state", nullable = false)
-    private FoodState state;
+    private OrderState state;
 
     @Column(name = "table_nr", nullable = false)
     private Integer tableNr;
@@ -48,11 +49,11 @@ public class Order {
         this.tableNr = tableNr;
     }
 
-    public FoodState getState() {
+    public OrderState getState() {
         return state;
     }
 
-    public void setState(FoodState state) {
+    public void setState(OrderState state) {
         this.state = state;
     }
 

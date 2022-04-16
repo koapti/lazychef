@@ -2,6 +2,8 @@ package com.koapti.lazychef.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.koapti.lazychef.model.states.FoodState;
 
 @Entity
 @Table(name = "orders_food")
@@ -21,12 +25,13 @@ public class OrdersFood {
     @Column(name = "comments")
     private String comments;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "state", nullable = false)
-    private String state;
+    private FoodState state;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_food", nullable = false)
-    private Food idFood;
+    private Food food;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_order", nullable = false)
@@ -41,18 +46,18 @@ public class OrdersFood {
     }
 
     public Food getIdFood() {
-        return idFood;
+        return food;
     }
 
     public void setIdFood(Food idFood) {
-        this.idFood = idFood;
+        this.food = idFood;
     }
 
-    public String getState() {
+    public FoodState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(FoodState state) {
         this.state = state;
     }
 
