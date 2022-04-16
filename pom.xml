@@ -8,14 +8,18 @@
 		<version>2.6.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.koapti</groupId>
 	<artifactId>lazychef</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>lazychef</name>
 	<description>Lazychef application</description>
+
 	<properties>
 		<java.version>11</java.version>
+		<springfox.version>3.0.0</springfox.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -60,10 +64,20 @@
 			<scope>test</scope>
 		</dependency>
 
-<!--Postgres, ale czy potrzebny?-->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>${springfox.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox.version}</version>
 		</dependency>
 	</dependencies>
 
