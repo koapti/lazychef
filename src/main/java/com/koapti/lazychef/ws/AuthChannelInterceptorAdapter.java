@@ -35,6 +35,7 @@ public class AuthChannelInterceptorAdapter implements ChannelInterceptor {
 
             accessor.setUser(user);
         }
+
         return message;
     }
 }

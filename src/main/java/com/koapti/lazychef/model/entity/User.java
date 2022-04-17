@@ -38,6 +38,15 @@ public class User {
     @Column(name = "surname", nullable = false, length = 40)
     private String surname;
 
+    public User(Integer id, String login, String name, String password, RoleType role, String surname) {
+        this.id = id;
+        this.login = login;
+        this.name = name;
+        this.password = password;
+        this.role = role;
+        this.surname = surname;
+    }
+
     public String getSurname() {
         return surname;
     }
