@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.koapti.lazychef.model.states.FoodState;
 import com.koapti.lazychef.model.states.OrderState;
 
 @Entity
