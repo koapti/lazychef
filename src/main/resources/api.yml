@@ -1,0 +1,46 @@
+openapi: "3.0.0"
+info:
+  title: Lazychef
+  version: 1.0.0
+  description: Lazychef API
+paths:
+  /users:
+    get:
+      operationId: getUsersList
+      description: Get users list
+      responses:
+        '200':
+          description: Users list
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        default:
+          description: Error
+          content:
+            'text/html':
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+    ErrorModel:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        description:
+          type: string
