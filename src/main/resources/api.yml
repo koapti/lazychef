@@ -1,0 +1,268 @@
+openapi: "3.0.0"
+info:
+  title: Lazychef
+  version: 1.0.0
+  description: Lazychef API
+paths:
+  #  users API
+  /users:
+    get:
+      operationId: getUsersList
+      description: Get users list
+      responses:
+        '200':
+          description: Users list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersList'
+    post:
+      operationId: createUser
+      description: Create user
+      requestBody:
+        description: User details to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created successfully
+  /users/{id}:
+    get:
+      operationId: getUserDetails
+      description: Get user details
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      operationId: deleteUser
+      description: Delete user
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: User deleted successfully
+  #  food API
+  /food:
+    get:
+      operationId: getFoodList
+      description: Get food list
+      responses:
+        '200':
+          description: Food list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoodList'
+    post:
+      operationId: createFood
+      description: Create food
+      responses:
+        '201':
+          description: Food created successfully
+  /food/{id}:
+    delete:
+      operationId: deleteFood
+      description: Delete food
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Food deleted successfully
+
+  #  order API
+  /order:
+    get:
+      operationId: getOrderList
+      description: Get order list
+      responses:
+        '200':
+          description: Order list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderList'
+    post:
+      operationId: createOrder
+      description: Create order
+      responses:
+        '201':
+          description: Order created successfully
+  /order/{id}:
+    get:
+      operationId: getOrderDetails
+      description: Get order details
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+    put:
+      operationId: updateOrder
+      description: Update order
+      requestBody:
+        description: Order details to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Order updated successfully
+
+#  order-food API
+  /orders-food/{id}:
+    put:
+      operationId: updateOrdersFood
+      description: Update food in order
+      requestBody:
+        description: Order details details to update food in
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdersFood'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OrdersFood updated successfully
+
+components:
+  schemas:
+    #   USERS
+    User:
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+    UsersList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    Role:
+      type: string
+      enum:
+        - OWNER
+        - COOK
+        - WAITER
+
+    #  FOOD
+    Food:
+      type: object
+      properties:
+        id:
+          type: integer
+        cost:
+          type: number
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/FoodType'
+    FoodList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/Food'
+    FoodType:
+      type: string
+      enum:
+        - DRINK
+        - DISH
+
+    #   ORDER
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        state:
+          $ref: '#/components/schemas/OrderState'
+        tableNr:
+          type: integer
+    OrderList:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+    OrderState:
+      type: string
+      enum:
+        - READY
+        - IN_PROGRESS
+        - NOT_READY
+
+    #   ORDERS-FOOD
+    OrdersFood:
+      type: object
+      properties:
+        id:
+          type: integer
+        comments:
+          type: string
+        FoodState:
+          $ref: '#/components/schemas/FoodState'
+        food:
+          $ref: '#/components/schemas/Food'
+        order:
+          $ref: '#/components/schemas/Order'
+    FoodState:
+      type: string
+      enum:
+        - READY
+        - IN_PROGRESS
+        - NOT_READY
