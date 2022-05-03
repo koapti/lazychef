@@ -177,9 +177,9 @@ components:
           type: string
         password:
           type: string
-        firstName:
+        name:
           type: string
-        secondName:
+        surname:
           type: string
         role:
           $ref: '#/components/schemas/Role'
