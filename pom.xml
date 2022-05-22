@@ -20,6 +20,7 @@
 		<springfox.version>3.0.0</springfox.version>
 		<sonarqube.version>3.2</sonarqube.version>
 		<openapi-tools.version>0.2.2</openapi-tools.version>
+		<lazychef-api.version>1.0.0</lazychef-api.version>
 	</properties>
 
 	<dependencies>
@@ -102,6 +103,12 @@
 			<artifactId>jackson-databind-nullable</artifactId>
 			<version>${openapi-tools.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.koapti.lazychef.api</groupId>
+			<artifactId>lazychef-api</artifactId>
+			<version>${lazychef-api.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -118,32 +125,6 @@
 						</exclude>
 					</excludes>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.openapitools</groupId>
-				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>5.1.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>
-								${project.basedir}/src/main/resources/api.yml
-							</inputSpec>
-							<generatorName>spring</generatorName>
-							<apiPackage>com.koapti.lazychef.openapi.api</apiPackage>
-							<modelPackage>com.koapti.lazychef.openapi.model</modelPackage>
-							<supportingFilesToGenerate>
-								ApiUtil.java
-							</supportingFilesToGenerate>
-							<configOptions>
-								<delegatePattern>true</delegatePattern>
-							</configOptions>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
