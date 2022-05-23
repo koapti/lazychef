@@ -40,7 +40,7 @@ public class UsersController implements UsersApiDelegate {
     @ApiResponses({@ApiResponse(code = 201, message = "User created successfully")})
     @PostMapping
     public ResponseEntity<Void> createUser(@ApiParam(value = "User details to create", required = true) @RequestBody @Valid final User user) {
-        createUserHandler.handle(UserDtoMapper.toDomainUser(user));
+        createUserHandler.handle(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
