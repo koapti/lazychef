@@ -11,7 +11,6 @@ import com.koapti.lazychef.http.handler.users.DeleteUserHandler;
 import com.koapti.lazychef.http.handler.users.GetUserDetailsHandler;
 import com.koapti.lazychef.http.handler.users.GetUsersHandler;
 import com.koapti.lazychef.model.mappers.dto.UserDtoMapper;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
