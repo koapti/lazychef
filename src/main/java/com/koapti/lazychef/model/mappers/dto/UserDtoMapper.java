@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class UserDtoMapper {
     public static UserDto toDomainUser(final User user) {
         return UserDto.builder()
+                .id(user.getId())
                 .login(user.getLogin())
                 .name(user.getName())
                 .password(user.getPassword())

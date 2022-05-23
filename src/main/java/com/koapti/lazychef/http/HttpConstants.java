@@ -1,5 +1,9 @@
 package com.koapti.lazychef.http;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpConstants {
 
     public static final String USERS_HTTP_ENDPOINT = "/users";

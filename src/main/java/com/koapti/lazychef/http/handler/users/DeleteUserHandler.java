@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 public class DeleteUserHandler {
 
     private final UserRepository userRepository;
-    public String handle(final String id) {
-        return null;
+
+    public void handle(final String id) {
+        userRepository.deleteById(Integer.parseInt(id));
     }
 }

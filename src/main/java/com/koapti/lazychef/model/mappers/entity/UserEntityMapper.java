@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class UserEntityMapper {
     public static User toUserEntity(final UserDto userDto) {
         User user = new User();
+        user.setId(userDto.getId());
         user.setLogin(userDto.getLogin());
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());

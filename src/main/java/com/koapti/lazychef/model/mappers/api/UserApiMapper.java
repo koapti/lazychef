@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class UserApiMapper {
     public static User toApiUser(final com.koapti.lazychef.model.entity.User user) {
         return User.builder()
+                .id(user.getId())
                 .login(user.getLogin())
                 .name(user.getName())
                 .password(user.getPassword())

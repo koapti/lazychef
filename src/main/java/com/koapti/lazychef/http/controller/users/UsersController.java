@@ -39,7 +39,7 @@ public class UsersController implements UsersApiDelegate {
     @ApiOperation(value = "", nickname = "createUser", notes = "Create user")
     @ApiResponses({@ApiResponse(code = 201, message = "User created successfully")})
     @PostMapping
-    public ResponseEntity<Void> createUser(@ApiParam(value = "User details to create", required = true) @RequestBody @Valid User user) {
+    public ResponseEntity<Void> createUser(@ApiParam(value = "User details to create", required = true) @RequestBody @Valid final User user) {
         createUserHandler.handle(UserDtoMapper.toDomainUser(user));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -49,8 +49,8 @@ public class UsersController implements UsersApiDelegate {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "User details", response = User.class)})
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserDetails(@ApiParam(value = "The ID of the specific user for which you want details.", required = true)
-                                               @PathVariable("id") String id) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+                                               @PathVariable("id") final String id) {
+        return new ResponseEntity<>(getUserDetailshandler.handle(id), HttpStatus.OK);
     }
 
     @Override
@@ -66,8 +66,9 @@ public class UsersController implements UsersApiDelegate {
     @ApiResponses({@ApiResponse(code = 200, message = "User deleted successfully")})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@ApiParam(value = "The ID of the specific user witch you want delete.", required = true)
-                                           @PathVariable("id") String id) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+                                           @PathVariable("id") final String id) {
+        deleteUserHandler.handle(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
