@@ -1,9 +1,17 @@
 package com.koapti.lazychef.http.handler.users;
 
-public class CreateUserHandler {
-//    private final UserRepository userRepository;
+import com.koapti.lazychef.model.dto.UserDto;
+import com.koapti.lazychef.model.mappers.entity.UserEntityMapper;
+import com.koapti.lazychef.repository.UserRepository;
 
-    public String handle() {
-        return null;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor(staticName = "of")
+public class CreateUserHandler {
+
+    private final UserRepository userRepository;
+
+    public void handle(final UserDto userDto) {
+        userRepository.save(UserEntityMapper.toUserEntity(userDto));
     }
 }

@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import com.koapti.lazychef.model.types.RoleType;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class UserDto implements Serializable {
     private final String login;
     private final String name;
