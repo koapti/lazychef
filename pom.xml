@@ -20,7 +20,8 @@
 		<springfox.version>3.0.0</springfox.version>
 		<sonarqube.version>3.2</sonarqube.version>
 		<openapi-tools.version>0.2.2</openapi-tools.version>
-		<lazychef-api.version>1.0.0</lazychef-api.version>
+
+		<lazychef-api.version>1.0.5</lazychef-api.version>
 	</properties>
 
 	<dependencies>
@@ -139,7 +140,7 @@
 				<!-- Optional URL to server. Default value is http://localhost:9000 -->
 				<sonar.host.url>
 <!--					http://192.168.2.174:9000-->
-					http://localhost:9000
+					http://localhost:9000/
 				</sonar.host.url>
 			</properties>
 		</profile>
