@@ -16,8 +16,8 @@ public class GetUsersHandler {
     private final UserRepository userRepository;
 
     public UsersList handle() {
-        List<User> all = userRepository.findAll();
+        List<User> allUsers = userRepository.findAll();
 
-        return UsersList.of(all.stream().map(UserApiMapper::toApiUser).collect(Collectors.toList()));
+        return UsersList.of(allUsers.stream().map(UserApiMapper::toApiUser).collect(Collectors.toList()));
     }
 }
