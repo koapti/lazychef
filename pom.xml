@@ -21,7 +21,7 @@
 		<sonarqube.version>3.2</sonarqube.version>
 		<openapi-tools.version>0.2.2</openapi-tools.version>
 
-		<lazychef-api.version>1.0.5</lazychef-api.version>
+		<lazychef-api.version>1.0.6_CHUJ</lazychef-api.version>
 	</properties>
 
 	<dependencies>
