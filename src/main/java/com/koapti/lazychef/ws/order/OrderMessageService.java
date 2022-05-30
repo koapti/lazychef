@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderMessageService {
@@ -14,32 +14,37 @@ public class OrderMessageService {
     private final String apiURL = "http://localhost:8081/";
     private final RestTemplate client = new RestTemplate();
 
-    private final Set<Order> orders = ConcurrentHashMap.newKeySet();
+    private final Map<Integer, Order> orders = new ConcurrentHashMap<>();
 
-    private final Map<OrderIncomingMessageType, Function<OrderIncomingMessage, OrderOutgoingMessage>> messageHandlers = Map.of(
-            OrderIncomingMessageType.ADD, this::addOrder,
-            OrderIncomingMessageType.REMOVE, this::removeOrder
-    );
+    public OrderOutgoingMessage addOrder(Order order) {
+        var id = (int) (Math.random() * 1000 % 100);
+        var newOrder = Order.builder()
+                .id(id)
+                .tableNr(order.getTableNr())
+                .foodIds(order.getFoodIds())
+                .build();
 
-    public Function<OrderIncomingMessage, OrderOutgoingMessage> getHandler(OrderIncomingMessageType orderIncomingMessageType) {
-        return messageHandlers.get(orderIncomingMessageType);
+        if (orders.put(id, newOrder) == null) {
+            return new OrderOutgoingMessage(OrderOutgoingMessageType.ADDED, newOrder);
+        }
+        return new OrderOutgoingMessage(OrderOutgoingMessageType.FAILURE);
     }
 
-    public OrderOutgoingMessage addOrder(OrderIncomingMessage message) {
-        //var response = client.postForObject(apiURL + "/1", message.getOrder(), Order.class);
-        var outgoingOrder = new Order((int) (Math.random() * 1000 % 100), message.getOrder().getContent());
-        if (orders.add(outgoingOrder)) {
-            return new OrderOutgoingMessage(OrderOutgoingMessageType.ADDED, outgoingOrder);
+    public OrderOutgoingMessage removeOrderFood(Order order) {
+        if(order.getFoodIds().size() != 1) {
+            return new OrderOutgoingMessage(OrderOutgoingMessageType.FAILURE);
         }
-        return new OrderOutgoingMessage(OrderOutgoingMessageType.FAILURE, outgoingOrder);
-    }
+        var foodIdToRemove = order.getFoodIds().get(0);
+        var possibleOrder = orders.get(order.getId());
+        if(possibleOrder == null) {
+            return new OrderOutgoingMessage(OrderOutgoingMessageType.FAILURE);
+        }
 
-    public OrderOutgoingMessage removeOrder(OrderIncomingMessage message) {
-        var order = message.getOrder();
-        if (orders.remove(order)) {
-            return new OrderOutgoingMessage(OrderOutgoingMessageType.REMOVED, order);
+        if(possibleOrder.getFoodIds().remove(foodIdToRemove)) {
+            return new OrderOutgoingMessage(OrderOutgoingMessageType.FOOD_REMOVED, order);
         }
-        return new OrderOutgoingMessage(OrderOutgoingMessageType.FAILURE, order);
+
+        return new OrderOutgoingMessage(OrderOutgoingMessageType.FAILURE);
     }
 
 }

@@ -12,15 +12,14 @@ public class OrderController {
 
     @MessageMapping("/order/add")
     @SendTo("/topic/orders")
-    public OrderOutgoingMessage addOrder(OrderIncomingMessage orderIncomingMessage) {
-        var messageType = orderIncomingMessage.getOrderIncomingMessageType();
-        return orderMessageService.getHandler(messageType).apply(orderIncomingMessage);
+    public OrderOutgoingMessage addOrder(Order order) {
+        return orderMessageService.addOrder(order);
     }
 
-    @MessageMapping("/order/remove")
+    @MessageMapping("/order/remove-food")
     @SendTo("/topic/orders")
-    public OrderOutgoingMessage removeOrder(OrderIncomingMessage orderIncomingMessage) {
-        return null;
+    public OrderOutgoingMessage removeOrderFood(Order order) {
+        return orderMessageService.removeOrderFood(order);
     }
 
     @MessageMapping("/order/update-order-state")
