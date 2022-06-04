@@ -1,6 +1,5 @@
 package com.koapti.lazychef.model.mappers.entity;
 
-import com.koapti.lazychef.model.dto.UserDto;
 import com.koapti.lazychef.model.entity.User;
 import com.koapti.lazychef.model.types.RoleType;
 
