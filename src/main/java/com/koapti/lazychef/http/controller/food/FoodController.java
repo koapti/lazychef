@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import com.koapti.lazychef.api.model.Food;
 import com.koapti.lazychef.api.model.FoodList;
 import com.koapti.lazychef.http.HttpConstants;
+import com.koapti.lazychef.http.exceptions.FoodAlreadyExistsException;
 import com.koapti.lazychef.http.exceptions.FoodNotFoundException;
 import com.koapti.lazychef.http.handler.food.CreateFoodHandler;
 import com.koapti.lazychef.http.handler.food.DeleteFoodHandler;
@@ -44,8 +45,12 @@ public class FoodController {
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Food created successfully", response = String.class)})
     @PostMapping
     public ResponseEntity<String> createFood(@ApiParam(value = "Food details to create", required = true) @Valid @RequestBody final Food food) {
-        String id = createFoodHandler.handle(food);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
+        try {
+            String id = createFoodHandler.handle(food);
+            return new ResponseEntity<>(id, HttpStatus.CREATED);
+        } catch (final FoodAlreadyExistsException foodAlreadyExistsException) {
+            return new ResponseEntity<>(foodAlreadyExistsException.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     @ApiOperation(value = "", nickname = "deleteFood", notes = "Delete food")
@@ -77,9 +82,8 @@ public class FoodController {
         }
     }
 
-    @ApiOperation(value = "", nickname = "updateFood", notes = "Update food", tags = {})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Food updated successfully")})
+    @ApiOperation(value = "", nickname = "updateFood", notes = "Update food")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Food updated successfully")})
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateFood(@ApiParam(value = "The ID of the specific food which you want to edit.", required = true)
                                            @PathVariable("id") final String id, @ApiParam(value = "Food details to update", required = true)

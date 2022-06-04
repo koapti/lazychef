@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import com.koapti.lazychef.api.model.User;
 import com.koapti.lazychef.api.model.UsersList;
 import com.koapti.lazychef.http.HttpConstants;
+import com.koapti.lazychef.http.exceptions.UserAlreadyExistsException;
 import com.koapti.lazychef.http.exceptions.UserNotFoundException;
 import com.koapti.lazychef.http.handler.users.CreateUserHandler;
 import com.koapti.lazychef.http.handler.users.DeleteUserHandler;
@@ -40,8 +41,12 @@ public class UsersController {
     @ApiResponses(value = {@ApiResponse(code = 201, message = "User created successfully", response = String.class)})
     @PostMapping
     public ResponseEntity<String> createUser(@ApiParam(value = "User details to create", required = true) @RequestBody @Valid final User user) {
-        String id = createUserHandler.handle(user);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
+        try {
+            String id = createUserHandler.handle(user);
+            return new ResponseEntity<>(id, HttpStatus.CREATED);
+        } catch (final UserAlreadyExistsException userAlreadyExistsException) {
+            return new ResponseEntity<>(userAlreadyExistsException.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     @ApiOperation(value = "", nickname = "getUserDetails", notes = "Get user details")
