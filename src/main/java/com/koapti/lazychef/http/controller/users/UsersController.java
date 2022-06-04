@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import com.koapti.lazychef.api.model.User;
 import com.koapti.lazychef.api.model.UsersList;
 import com.koapti.lazychef.http.HttpConstants;
+import com.koapti.lazychef.http.exceptions.UserNotFoundException;
 import com.koapti.lazychef.http.handler.users.CreateUserHandler;
 import com.koapti.lazychef.http.handler.users.DeleteUserHandler;
 import com.koapti.lazychef.http.handler.users.GetUserDetailsHandler;
@@ -48,7 +49,12 @@ public class UsersController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserDetails(@ApiParam(value = "The ID of the specific user for which you want details.", required = true)
                                                @PathVariable("id") final String id) {
-        return new ResponseEntity<>(getUserDetailshandler.handle(id), HttpStatus.OK);
+        try {
+            User user = getUserDetailshandler.handle(id);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (final UserNotFoundException userNotFoundException) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @ApiOperation(value = "", nickname = "getUsersList", notes = "Get users list")

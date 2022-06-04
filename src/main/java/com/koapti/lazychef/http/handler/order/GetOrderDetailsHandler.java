@@ -14,9 +14,9 @@ public class GetOrderDetailsHandler {
 
     private final OrderRepository orderRepository;
 
-    public Order handle(final String id) throws OrderNotFoundException{
+    public Order handle(final String id) throws OrderNotFoundException {
         Optional<com.koapti.lazychef.model.entity.Order> order = orderRepository.findById(Integer.parseInt(id));
-        if(order.isPresent()) {
+        if (order.isPresent()) {
             return OrderApiMapper.toApiOrder(order.get());
         }
         throw new OrderNotFoundException("Order was not found");
