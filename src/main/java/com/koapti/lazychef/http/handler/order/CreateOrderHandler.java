@@ -11,8 +11,9 @@ public class CreateOrderHandler {
 
     private final OrderRepository orderRepository;
 
-    public void handle(final Order order) {
-        orderRepository.save(OrderEntityMapper.toEntityMapper(order));
+    public String handle(final Order order) {
+        com.koapti.lazychef.model.entity.Order save = orderRepository.save(OrderEntityMapper.toOrderEntity(order));
+        return save.getId().toString();
     }
 
 }

@@ -1,7 +1,8 @@
 package com.koapti.lazychef.http.handler.users;
 
 import com.koapti.lazychef.api.model.User;
-import com.koapti.lazychef.model.dto.UserDto;
+import com.koapti.lazychef.http.exceptions.UserAlreadyExistsException;
+import com.koapti.lazychef.http.service.UserService;
 import com.koapti.lazychef.model.mappers.entity.UserEntityMapper;
 import com.koapti.lazychef.repository.UserRepository;
 
@@ -11,8 +12,13 @@ import lombok.AllArgsConstructor;
 public class CreateUserHandler {
 
     private final UserRepository userRepository;
+    private final UserService userService;
 
-    public void handle(final User user) {
-        userRepository.save(UserEntityMapper.toUserEntity(user));
+    public String handle(final User user) throws UserAlreadyExistsException {
+        if (userService.isUserPresent(user.getLogin())) {
+            throw new UserAlreadyExistsException("User with login \"" + user.getName() + "\" already exists.");
+        }
+        com.koapti.lazychef.model.entity.User savedUser = userRepository.save(UserEntityMapper.toUserEntity(user));
+        return savedUser.getId().toString();
     }
 }

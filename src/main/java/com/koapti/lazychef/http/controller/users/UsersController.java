@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import com.koapti.lazychef.api.model.User;
 import com.koapti.lazychef.api.model.UsersList;
 import com.koapti.lazychef.http.HttpConstants;
+import com.koapti.lazychef.http.exceptions.UserAlreadyExistsException;
+import com.koapti.lazychef.http.exceptions.UserNotFoundException;
 import com.koapti.lazychef.http.handler.users.CreateUserHandler;
 import com.koapti.lazychef.http.handler.users.DeleteUserHandler;
 import com.koapti.lazychef.http.handler.users.GetUserDetailsHandler;
@@ -35,12 +37,16 @@ public class UsersController {
     private GetUsersHandler getUsersHandler;
     private DeleteUserHandler deleteUserHandler;
 
-    @ApiOperation(value = "", nickname = "createUser", notes = "Create user")
-    @ApiResponses({@ApiResponse(code = 201, message = "User created successfully")})
+    @ApiOperation(value = "", nickname = "createUser", notes = "Create user", response = String.class)
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "User created successfully", response = String.class)})
     @PostMapping
-    public ResponseEntity<Void> createUser(@ApiParam(value = "User details to create", required = true) @RequestBody @Valid final User user) {
-        createUserHandler.handle(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<String> createUser(@ApiParam(value = "User details to create", required = true) @RequestBody @Valid final User user) {
+        try {
+            String id = createUserHandler.handle(user);
+            return new ResponseEntity<>(id, HttpStatus.CREATED);
+        } catch (final UserAlreadyExistsException userAlreadyExistsException) {
+            return new ResponseEntity<>(userAlreadyExistsException.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     @ApiOperation(value = "", nickname = "getUserDetails", notes = "Get user details")
@@ -48,7 +54,12 @@ public class UsersController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserDetails(@ApiParam(value = "The ID of the specific user for which you want details.", required = true)
                                                @PathVariable("id") final String id) {
-        return new ResponseEntity<>(getUserDetailshandler.handle(id), HttpStatus.OK);
+        try {
+            User user = getUserDetailshandler.handle(id);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (final UserNotFoundException userNotFoundException) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @ApiOperation(value = "", nickname = "getUsersList", notes = "Get users list")
@@ -66,5 +77,4 @@ public class UsersController {
         deleteUserHandler.handle(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

@@ -17,7 +17,6 @@ public class GetOrdersHandler {
 
     public OrderList handle() {
         List<Order> allOrders = orderRepository.findAll();
-
         return OrderList.of(allOrders.stream().map(OrderApiMapper::toApiOrder).collect(Collectors.toList()));
     }
 }
