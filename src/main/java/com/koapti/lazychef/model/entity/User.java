@@ -11,11 +11,15 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 import com.koapti.lazychef.model.types.RoleType;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users", indexes = {
         @Index(name = "users_login_uindex", columnList = "login", unique = true)
 })
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

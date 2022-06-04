@@ -1,7 +1,8 @@
 package com.koapti.lazychef.model.mappers.dto;
 
-import com.koapti.lazychef.api.model.User;
+
 import com.koapti.lazychef.model.dto.UserDto;
+import com.koapti.lazychef.model.entity.User;
 import com.koapti.lazychef.model.types.RoleType;
 
 import lombok.AccessLevel;
