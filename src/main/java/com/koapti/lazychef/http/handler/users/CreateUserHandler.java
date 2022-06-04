@@ -15,10 +15,10 @@ public class CreateUserHandler {
     private final UserService userService;
 
     public String handle(final User user) throws UserAlreadyExistsException {
-        if (userService.isUserAlreadyExists(user.getLogin())) {
+        if (userService.isUserPresent(user.getLogin())) {
             throw new UserAlreadyExistsException("User with login \"" + user.getName() + "\" already exists.");
         }
-        com.koapti.lazychef.model.entity.User save = userRepository.save(UserEntityMapper.toUserEntity(user));
-        return save.getId().toString();
+        com.koapti.lazychef.model.entity.User savedUser = userRepository.save(UserEntityMapper.toUserEntity(user));
+        return savedUser.getId().toString();
     }
 }

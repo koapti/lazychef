@@ -12,7 +12,7 @@ public class FoodService {
 
     private final FoodRepository foodRepository;
 
-    public boolean isFoodAlreadyExists(final String name) {
+    public boolean isFoodPresent(final String name) {
         return checkFood(name);
     }
 

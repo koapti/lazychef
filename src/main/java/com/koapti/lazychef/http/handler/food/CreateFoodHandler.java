@@ -15,10 +15,10 @@ public class CreateFoodHandler {
     private final FoodService foodService;
 
     public String handle(final Food food) throws FoodAlreadyExistsException {
-        if (foodService.isFoodAlreadyExists(food.getName())) {
+        if (foodService.isFoodPresent(food.getName())) {
             throw new FoodAlreadyExistsException("Food with name \"" + food.getName() + "\" already exists.");
         }
-        com.koapti.lazychef.model.entity.Food save = foodRepository.save(FoodEntityMapper.toFoodEntity(food));
-        return save.getId().toString();
+        com.koapti.lazychef.model.entity.Food savedFood = foodRepository.save(FoodEntityMapper.toFoodEntity(food));
+        return savedFood.getId().toString();
     }
 }

@@ -12,7 +12,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public boolean isUserAlreadyExists(final String login) {
+    public boolean isUserPresent(final String login) {
         return checkUser(login);
     }
 
