@@ -38,45 +38,12 @@ public class User {
     @Column(name = "surname", nullable = false, length = 40)
     private String surname;
 
-    public User(Integer id, String login, String name, String password, RoleType role, String surname) {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
-        this.login = login;
-        this.name = name;
-        this.password = password;
-        this.role = role;
-        this.surname = surname;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public RoleType getRole() {
-        return role;
-    }
-
-    public void setRole(RoleType role) {
-        this.role = role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getLogin() {
@@ -87,11 +54,36 @@ public class User {
         this.login = login;
     }
 
-    public Integer getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public RoleType getRole() {
+        return role;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
 }
