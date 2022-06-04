@@ -36,12 +36,12 @@ public class UsersController {
     private GetUsersHandler getUsersHandler;
     private DeleteUserHandler deleteUserHandler;
 
-    @ApiOperation(value = "", nickname = "createUser", notes = "Create user")
-    @ApiResponses({@ApiResponse(code = 201, message = "User created successfully")})
+    @ApiOperation(value = "", nickname = "createUser", notes = "Create user", response = String.class)
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "User created successfully", response = String.class)})
     @PostMapping
-    public ResponseEntity<Void> createUser(@ApiParam(value = "User details to create", required = true) @RequestBody @Valid final User user) {
-        createUserHandler.handle(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<String> createUser(@ApiParam(value = "User details to create", required = true) @RequestBody @Valid final User user) {
+        String id = createUserHandler.handle(user);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "", nickname = "getUserDetails", notes = "Get user details")
@@ -72,5 +72,4 @@ public class UsersController {
         deleteUserHandler.handle(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

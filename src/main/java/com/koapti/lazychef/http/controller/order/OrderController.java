@@ -50,13 +50,12 @@ public class OrderController {
         }
     }
 
-    @ApiOperation(value = "", nickname = "createOrder", notes = "Create order")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Order created successfully")})
+    @ApiOperation(value = "", nickname = "createOrder", notes = "Create order", response = String.class)
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "Order created successfully", response = String.class) })
     @PostMapping
-    public ResponseEntity<Void> createOrder(@ApiParam(value = "Order details to create", required = true) @Valid @RequestBody final Order order) {
-        createOrderHandler.handle(order);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<String> createOrder(@ApiParam(value = "Order details to create", required = true) @Valid @RequestBody final Order order) {
+        String id = createOrderHandler.handle(order);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "", nickname = "getOrderList", notes = "Get order list", response = OrderList.class)

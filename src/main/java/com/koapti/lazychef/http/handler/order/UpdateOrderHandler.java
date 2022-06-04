@@ -18,7 +18,7 @@ public class UpdateOrderHandler {
 
     private com.koapti.lazychef.model.entity.Order updateOrder(final com.koapti.lazychef.api.model.Order order,
                                                                final com.koapti.lazychef.model.entity.Order orderEntity) {
-        com.koapti.lazychef.model.entity.Order orderEntityTemp = OrderEntityMapper.toEntityMapper(order);
+        com.koapti.lazychef.model.entity.Order orderEntityTemp = OrderEntityMapper.toOrderEntity(order);
         orderEntity.setState(orderEntityTemp.getState());
         orderEntity.setTableNr(orderEntityTemp.getTableNr());
         return orderEntity;
