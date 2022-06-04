@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.koapti.lazychef.model.states.FoodState;
+import com.koapti.lazychef.model.states.OrderState;
 
 @Entity
 @Table(name = "orders_food")
@@ -30,35 +31,19 @@ public class OrdersFood {
     private FoodState state;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_food", nullable = false)
-    private Food food;
+    @JoinColumn(name = "id_food_fk", nullable = false)
+    private Food idFoodFk;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_order", nullable = false)
-    private Order order;
+    @JoinColumn(name = "id_order_fk", nullable = false)
+    private Order idOrderFk;
 
-    public Order getOrder() {
-        return order;
+    public Integer getId() {
+        return id;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Food getFood() {
-        return food;
-    }
-
-    public void setFood(Food food) {
-        this.food = food;
-    }
-
-    public FoodState getState() {
-        return state;
-    }
-
-    public void setState(FoodState state) {
-        this.state = state;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getComments() {
@@ -69,11 +54,28 @@ public class OrdersFood {
         this.comments = comments;
     }
 
-    public Integer getId() {
-        return id;
+    public FoodState getState() {
+        return state;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setState(FoodState state) {
+        this.state = state;
     }
+
+    public Food getIdFoodFk() {
+        return idFoodFk;
+    }
+
+    public void setIdFoodFk(Food idFoodFk) {
+        this.idFoodFk = idFoodFk;
+    }
+
+    public Order getIdOrderFk() {
+        return idOrderFk;
+    }
+
+    public void setIdOrderFk(Order idOrderFk) {
+        this.idOrderFk = idOrderFk;
+    }
+
 }
