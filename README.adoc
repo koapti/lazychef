@@ -1,1 +1,5 @@
 = lazychef
+
+https://github.com/koapti/lazychef-documentation[Lazychef Documentation]
+
+https://github.com/koapti/lazychef-api[Lazychef API]
