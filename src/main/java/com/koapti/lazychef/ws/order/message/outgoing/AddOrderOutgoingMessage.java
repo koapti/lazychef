@@ -11,9 +11,11 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 public class AddOrderOutgoingMessage extends AbstractOrderOutgoingMessage {
+    private Integer tableNr;
     private List<OrdersFood> orderFoods;
-    public AddOrderOutgoingMessage(List<OrdersFood> orderFoods, OrderOutgoingMessageType messageType) {
+    public AddOrderOutgoingMessage(Integer tableNr, List<OrdersFood> orderFoods, OrderOutgoingMessageType messageType) {
         super(messageType);
+        this.tableNr = tableNr;
         this.orderFoods = orderFoods;
     }
     public AddOrderOutgoingMessage(OrderOutgoingMessageType messageType) {

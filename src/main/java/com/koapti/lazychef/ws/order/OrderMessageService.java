@@ -48,10 +48,14 @@ public class OrderMessageService {
                     return orderFoodCandidate;
                 })
                 .collect(Collectors.toList());
-        return new AddOrderOutgoingMessage(ordersFoodWithIds, OrderOutgoingMessageType.ADDED);
+        return new AddOrderOutgoingMessage(order.getTableNr(), ordersFoodWithIds, OrderOutgoingMessageType.ADDED);
     }
 
     public AbstractOrderOutgoingMessage removeOrderFood(RemoveOrderFoodIncomingMessage removeOrderMessage) {
+        var orderFood = ordersFood.get(removeOrderMessage.getOrderFoodId());
+        if(!orderFood.getFoodState().equals(FoodState.NOT_READY)) {
+            return new RemoveOrderFoodOutgoingMessage(OrderOutgoingMessageType.FAILURE);
+        }
         if (ordersFood.remove(removeOrderMessage.getOrderFoodId()) == null) {
             return new RemoveOrderFoodOutgoingMessage(OrderOutgoingMessageType.FAILURE);
         }
