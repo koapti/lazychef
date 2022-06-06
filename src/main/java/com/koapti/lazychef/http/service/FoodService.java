@@ -16,6 +16,14 @@ public class FoodService {
         return checkFood(name);
     }
 
+    public Food getFood(final String id) {
+        return getFoodFromRepository(id);
+    }
+
+    private Food getFoodFromRepository(final String id) {
+        return foodRepository.getById(Integer.valueOf(id));
+    }
+
     private boolean checkFood(final String name) {
         Optional<Food> food = foodRepository.findByName(name);
         return food.isPresent();
