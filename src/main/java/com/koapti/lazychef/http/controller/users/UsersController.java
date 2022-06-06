@@ -38,7 +38,9 @@ public class UsersController {
     private DeleteUserHandler deleteUserHandler;
 
     @ApiOperation(value = "", nickname = "createUser", notes = "Create user", response = String.class)
-    @ApiResponses(value = {@ApiResponse(code = 201, message = "User created successfully", response = String.class)})
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "User created successfully", response = String.class),
+            @ApiResponse(code = 409, message = "User with this personal data already exists.", response = String.class)})
     @PostMapping
     public ResponseEntity<String> createUser(@ApiParam(value = "User details to create", required = true) @RequestBody @Valid final User user) {
         try {
@@ -50,7 +52,9 @@ public class UsersController {
     }
 
     @ApiOperation(value = "", nickname = "getUserDetails", notes = "Get user details")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "User details", response = User.class)})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "User details", response = User.class),
+            @ApiResponse(code = 404, message = "User with this id was not found.", response = String.class)})
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserDetails(@ApiParam(value = "The ID of the specific user for which you want details.", required = true)
                                                @PathVariable("id") final String id) {

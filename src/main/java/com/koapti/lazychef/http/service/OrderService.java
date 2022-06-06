@@ -10,11 +10,11 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    public Order getOrder(final String id) {
+    public Order getOrder(final Integer id) {
         return getOrderFromRepository(id);
     }
 
-    private Order getOrderFromRepository(final String id) {
-        return orderRepository.getById(Integer.valueOf(id));
+    private Order getOrderFromRepository(final Integer id) {
+        return orderRepository.getById(id);
     }
 }

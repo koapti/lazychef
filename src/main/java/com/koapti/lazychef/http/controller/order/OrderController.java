@@ -38,7 +38,8 @@ public class OrderController {
 
     @ApiOperation(value = "", nickname = "getOrderDetails", notes = "Get order details", response = Order.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Order details", response = Order.class)})
+            @ApiResponse(code = 200, message = "Order details", response = Order.class),
+            @ApiResponse(code = 404, message = "Order with this id was not found.", response = String.class)})
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderDetails(@ApiParam(value = "The ID of the specific order for which you want details.", required = true)
                                                  @PathVariable("id") final String id) {
@@ -51,7 +52,7 @@ public class OrderController {
     }
 
     @ApiOperation(value = "", nickname = "createOrder", notes = "Create order", response = String.class)
-    @ApiResponses(value = {@ApiResponse(code = 201, message = "Order created successfully", response = String.class) })
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "Order created successfully", response = String.class)})
     @PostMapping
     public ResponseEntity<String> createOrder(@ApiParam(value = "Order details to create", required = true) @Valid @RequestBody final Order order) {
         String id = createOrderHandler.handle(order);
