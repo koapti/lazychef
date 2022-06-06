@@ -1,8 +1,9 @@
 package com.koapti.lazychef.http.handler.ordersfood;
 
 import com.koapti.lazychef.api.model.OrdersFood;
+import com.koapti.lazychef.http.service.FoodService;
+import com.koapti.lazychef.http.service.OrderService;
 import com.koapti.lazychef.model.states.FoodState;
-import com.koapti.lazychef.model.types.FoodType;
 import com.koapti.lazychef.repository.OrdersFoodRepository;
 
 import lombok.AllArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.AllArgsConstructor;
 public class UpdateOrdersFoodHandler {
 
     private final OrdersFoodRepository ordersFoodRepository;
+    private final FoodService foodService;
+    private final OrderService orderService;
 
     public void handle(final String id, final OrdersFood ordersFood) {
         com.koapti.lazychef.model.entity.OrdersFood savedOrdersFood = ordersFoodRepository.getById(Integer.valueOf(id));
@@ -21,7 +24,8 @@ public class UpdateOrdersFoodHandler {
                                                                          final com.koapti.lazychef.model.entity.OrdersFood ordersFoodEntity) {
         ordersFoodEntity.setComments(ordersFoodEntity.getComments());
         ordersFoodEntity.setState(FoodState.valueOf(ordersFood.getFoodState().name()));
-        // TODO: OBGADAC TEN ENDPOINT
+        ordersFoodEntity.setIdFoodFk(foodService.getFood(ordersFood.getId().toString()));
+        ordersFoodEntity.setIdOrderFk(orderService.getOrder(ordersFood.getId().toString()));
         return ordersFoodEntity;
     }
 }

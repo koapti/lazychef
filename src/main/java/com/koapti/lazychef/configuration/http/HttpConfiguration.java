@@ -1,16 +1,14 @@
 package com.koapti.lazychef.configuration.http;
 
-import com.koapti.lazychef.configuration.http.handlers.food.FoodHandlersConfiguration;
-import com.koapti.lazychef.configuration.http.handlers.order.OrderHandlersConfiguration;
-import com.koapti.lazychef.configuration.http.handlers.users.UserHandlersConfiguration;
+import com.koapti.lazychef.configuration.http.handlers.HandlersConfiguration;
+import com.koapti.lazychef.configuration.http.services.ServicesConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({
-        UserHandlersConfiguration.class,
-        OrderHandlersConfiguration.class,
-        FoodHandlersConfiguration.class
+        HandlersConfiguration.class,
+        ServicesConfiguration.class
 })
 public class HttpConfiguration {
 }
