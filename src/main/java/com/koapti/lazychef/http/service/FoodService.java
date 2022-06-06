@@ -16,12 +16,12 @@ public class FoodService {
         return checkFood(name);
     }
 
-    public Food getFood(final String id) {
+    public Food getFood(final Integer id) {
         return getFoodFromRepository(id);
     }
 
-    private Food getFoodFromRepository(final String id) {
-        return foodRepository.getById(Integer.valueOf(id));
+    private Food getFoodFromRepository(final Integer id) {
+        return foodRepository.getById(id);
     }
 
     private boolean checkFood(final String name) {

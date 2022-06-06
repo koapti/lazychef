@@ -9,19 +9,19 @@ import com.koapti.lazychef.repository.OrdersFoodRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor(staticName = "of")
-public class UpdateOrdersFoodHandler {
+public class CreateOrdersFoodHandler {
 
     private final OrdersFoodRepository ordersFoodRepository;
     private final FoodService foodService;
     private final OrderService orderService;
 
-    public void handle(final String id, final OrdersFood ordersFood) {
-        com.koapti.lazychef.model.entity.OrdersFood savedOrdersFood = ordersFoodRepository.getById(Integer.valueOf(id));
-        ordersFoodRepository.save(updateOrdersFood(ordersFood, savedOrdersFood));
+    public String handle(final OrdersFood ordersFood) {
+        com.koapti.lazychef.model.entity.OrdersFood savedOrdersFood = ordersFoodRepository.save(createOrdersFood(ordersFood));
+        return savedOrdersFood.getId().toString();
     }
 
-    private com.koapti.lazychef.model.entity.OrdersFood updateOrdersFood(final com.koapti.lazychef.api.model.OrdersFood ordersFood,
-                                                                         final com.koapti.lazychef.model.entity.OrdersFood ordersFoodEntity) {
+    private com.koapti.lazychef.model.entity.OrdersFood createOrdersFood(final OrdersFood ordersFood) {
+        com.koapti.lazychef.model.entity.OrdersFood ordersFoodEntity = new com.koapti.lazychef.model.entity.OrdersFood();
         ordersFoodEntity.setComments(ordersFood.getComments());
         ordersFoodEntity.setState(FoodState.valueOf(ordersFood.getFoodState().name()));
         ordersFoodEntity.setIdFoodFk(foodService.getFood(ordersFood.getFoodId()));

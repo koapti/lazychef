@@ -42,7 +42,9 @@ public class FoodController {
 
 
     @ApiOperation(value = "", nickname = "createFood", notes = "Create food", response = String.class)
-    @ApiResponses(value = {@ApiResponse(code = 201, message = "Food created successfully", response = String.class)})
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Food created successfully", response = String.class),
+            @ApiResponse(code = 409, message = "Food with this name already exists.", response = String.class) })
     @PostMapping
     public ResponseEntity<String> createFood(@ApiParam(value = "Food details to create", required = true) @Valid @RequestBody final Food food) {
         try {
@@ -70,7 +72,9 @@ public class FoodController {
     }
 
     @ApiOperation(value = "", nickname = "getFoodDetails", notes = "Get food details", response = Food.class)
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Food details", response = Food.class)})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Food details", response = Food.class),
+            @ApiResponse(code = 404, message = "Food with this id was not found.", response = String.class)})
     @GetMapping("/{id}")
     public ResponseEntity<Food> getFoodDetails(@ApiParam(value = "The ID of the specific food for which you want details.", required = true)
                                                @PathVariable("id") final String id) {
