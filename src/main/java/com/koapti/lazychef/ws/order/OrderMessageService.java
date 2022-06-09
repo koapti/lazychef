@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,6 +76,6 @@ public class OrderMessageService {
     }
 
     private Integer randomId() {
-        return (int) (Math.random() * 100000 % 10000) + 1;
+        return ThreadLocalRandom.current().nextInt(0, (Integer.MAX_VALUE - 1) / 2);
     }
 }
