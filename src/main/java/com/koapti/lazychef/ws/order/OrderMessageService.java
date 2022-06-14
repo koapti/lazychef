@@ -54,7 +54,7 @@ public class OrderMessageService {
 
     public AbstractOrderOutgoingMessage removeOrderFood(RemoveOrderFoodIncomingMessage removeOrderMessage) {
         var orderFood = ordersFood.get(removeOrderMessage.getOrderFoodId());
-        if(!orderFood.getFoodState().equals(FoodState.NOT_READY)) {
+        if(orderFood.getFoodState().equals(FoodState.IN_PROGRESS)) {
             return new RemoveOrderFoodOutgoingMessage(OrderOutgoingMessageType.FAILURE);
         }
         if (ordersFood.remove(removeOrderMessage.getOrderFoodId()) == null) {
